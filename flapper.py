@@ -26,6 +26,7 @@ def main(argv):
 	flap_count = 0
 	flap_down = 0
 	flap_up = 0
+	skipped = 0
 
 	peer_flaps = {}
 	intf_flaps = {}
@@ -46,6 +47,7 @@ def main(argv):
 
 				if peer_name in peer_flaps.keys():
 					if peer_flaps[peer_name]['state'] == peer_state:
+						skipped += 1
 						continue
 					peer_flaps[peer_name]['state'] == peer_state
 					peer_flaps[peer_name]['count'] += 1
@@ -56,6 +58,7 @@ def main(argv):
 						peer_flaps[peer_name]['state'] = peer_state
 						peer_flaps[peer_name]['count'] = 1
 					else:
+						skipped += 1
 						continue
 				if self_intf in intf_flaps.keys():
 					intf_flaps[self_intf] += 1
@@ -70,6 +73,7 @@ def main(argv):
 
 	print(f'Found {flap_count} flaps in the file.')
 	print(f'  up: {flap_up}, down: {flap_down}')
+	print(f'  skipped {skipped}')
 	print(peer_flaps)
 	print(intf_flaps)
 
