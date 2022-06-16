@@ -26,17 +26,27 @@ def main(argv):
 	flap_count = 0
 	flap_down = 0
 	flap_up = 0
+
+	peer_flaps = {}
+
 	with open(args.input) as fin:
 		for line in fin:
 			is_flap = re.search(FLAP_REGEX, line)
 			if is_flap:
 				flap_count += 1
 				tokens = line.split()
-				if flap_count % 100 == 0:
-					print(tokens)
-
+				if tokens[29] == 'up':
+					flap_up += 1
+				elif tokens[29] == 'down':
+					flap_down += 1
+				if tokens[15] in peer_flaps.keys():
+					peer_flaps[tokens[15]] += 1
+				else:
+					peer_flaps[tokens[15]] = 1
 
 	print(f'Found {flap_count} flaps in the file.')
+	print(f'  up: {flap_up}, down: {flap_down}')
+	print(peer_flaps)
 
 
 if __name__ == '__main__':
