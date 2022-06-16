@@ -37,6 +37,7 @@ def main(argv):
 			if is_flap:
 				tokens = line.split()
 				if len(tokens) < 30:
+					skipped += 1
 					continue
 				peer_name = tokens[15]
 				peer_intf = tokens[18]
@@ -45,24 +46,22 @@ def main(argv):
 				self_intf = tokens[24]
 				self_vlan = tokens[27]
 
-				try:
-					peer_state = tokens[29]
-				except:
-					print(line)
-					exit()
-
+				peer_state = tokens[29]
+				
 				if peer_name in peer_flaps.keys():
-					if peer_flaps[peer_name]['state'] == peer_state:
+					if peer_flaps[self_intf][peer_name][peer_intf]['state'] == peer_state:
 						skipped += 1
 						continue
-					peer_flaps[peer_name]['state'] == peer_state
-					peer_flaps[peer_name]['count'] += 1
+					peer_flaps[self_intf][peer_name][peer_intf]['state'] == peer_state
+					peer_flaps[self_intf][peer_name][peer_intf]['count'] += 1
 				else:
 					if peer_state == 'down':
 						# only add them here if they're down (presume they're up to begin with)
-						peer_flaps[peer_name] = {}
-						peer_flaps[peer_name]['state'] = peer_state
-						peer_flaps[peer_name]['count'] = 1
+						peer_flaps[self_intf] = {}
+						peer_flaps[self_intf][peer_name] = {}
+						peer_flaps[self_intf][peer_name][peer_intf] = {}
+						peer_flaps[self_intf][peer_name][peer_intf]['state'] = peer_state
+						peer_flaps[self_intf][peer_name][peer_intf]['count'] = 1
 					else:
 						skipped += 1
 						continue
