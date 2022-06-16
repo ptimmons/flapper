@@ -28,6 +28,7 @@ def main(argv):
 	flap_up = 0
 
 	peer_flaps = {}
+	intf_flaps = {}
 
 	with open(args.input) as fin:
 		for line in fin:
@@ -43,10 +44,15 @@ def main(argv):
 					peer_flaps[tokens[15]] += 1
 				else:
 					peer_flaps[tokens[15]] = 1
+				if tokens[24] in intf_flaps.keys():
+					intf_flaps[tokens[24]] += 1
+				else:
+					intf_flaps[tokens[24]] = 1
 
 	print(f'Found {flap_count} flaps in the file.')
 	print(f'  up: {flap_up}, down: {flap_down}')
 	print(peer_flaps)
+	print(intf_flaps)
 
 
 if __name__ == '__main__':
