@@ -11,6 +11,7 @@
 import os
 import re
 import argparse
+import sys
 
 FLAP_REGEX = r'.*Peer path state change'
 
@@ -30,3 +31,7 @@ def main(argv):
 				flap_count += 1
 
 	print(f'Found {flap_count} flaps in the file.')
+
+
+if __name__ == '__main__':
+	main(sys.argv[1:])
