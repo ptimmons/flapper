@@ -48,12 +48,13 @@ def main(argv):
 
 				peer_state = tokens[29]
 				
-				if peer_name in peer_flaps.keys():
-					if peer_flaps[self_intf][peer_name][peer_intf]['state'] == peer_state:
-						skipped += 1
-						continue
-					peer_flaps[self_intf][peer_name][peer_intf]['state'] == peer_state
-					peer_flaps[self_intf][peer_name][peer_intf]['count'] += 1
+				if self_intf in peer_flaps.keys():
+					if peer_name in peer_flaps[self_intf].keys():
+						if peer_flaps[self_intf][peer_name][peer_intf]['state'] == peer_state:
+							skipped += 1
+							continue
+						peer_flaps[self_intf][peer_name][peer_intf]['state'] == peer_state
+						peer_flaps[self_intf][peer_name][peer_intf]['count'] += 1
 				else:
 					if peer_state == 'down':
 						# only add them here if they're down (presume they're up to begin with)
