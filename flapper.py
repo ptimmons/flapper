@@ -24,11 +24,17 @@ def main(argv):
 	args = parser.parse_args()
 
 	flap_count = 0
+	flap_down = 0
+	flap_up = 0
 	with open(args.input) as fin:
 		for line in fin:
 			is_flap = re.search(FLAP_REGEX, line)
 			if is_flap:
 				flap_count += 1
+				tokens = line.split()
+				if flap_count % 100 == 0:
+					print(tokens)
+
 
 	print(f'Found {flap_count} flaps in the file.')
 
