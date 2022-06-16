@@ -36,6 +36,8 @@ def main(argv):
 			is_flap = re.search(FLAP_REGEX, line)
 			if is_flap:
 				tokens = line.split()
+				if len(tokens) < 30:
+					continue
 				peer_name = tokens[15]
 				peer_intf = tokens[18]
 				node_name = tokens[21]
