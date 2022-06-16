@@ -45,7 +45,7 @@ def main(argv):
 				peer_state = tokens[29]
 
 				if peer_name in peer_flaps.keys():
-					if peer_flaps[peer_name][state] == peer_state:
+					if peer_flaps[peer_name]['state'] == peer_state:
 						continue
 					peer_flaps[peer_name]['state'] == peer_state
 					peer_flaps[peer_name]['count'] += 1
