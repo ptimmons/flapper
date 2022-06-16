@@ -34,20 +34,39 @@ def main(argv):
 		for line in fin:
 			is_flap = re.search(FLAP_REGEX, line)
 			if is_flap:
-				flap_count += 1
 				tokens = line.split()
+				peer_name = tokens[15]
+				peer_intf = tokens[18]
+				node_name = tokens[21]
+
+				self_intf = tokens[24]
+				self_vlan = tokens[27]
+
+				peer_state = tokens[29]
+
+				if peer_name in peer_flaps.keys():
+					if peer_flaps[peer_name][state] == peer_state:
+						continue
+					peer_flaps[peer_name]['state'] == peer_state
+					peer_flaps[peer_name]['count'] += 1
+				else:
+					if peer_state == 'down':
+						# only add them here if they're down (presume they're up to begin with)
+						peer_flaps[peer_name] = {}
+						peer_flaps[peer_name]['state'] = peer_state
+						peer_flaps[peer_name]['count'] = 1
+					else:
+						continue
+				if self_intf in intf_flaps.keys():
+					intf_flaps[self_intf] += 1
+				else:
+					intf_flaps[self_intf] = 1
 				if tokens[29] == 'up':
 					flap_up += 1
 				elif tokens[29] == 'down':
 					flap_down += 1
-				if tokens[15] in peer_flaps.keys():
-					peer_flaps[tokens[15]] += 1
-				else:
-					peer_flaps[tokens[15]] = 1
-				if tokens[24] in intf_flaps.keys():
-					intf_flaps[tokens[24]] += 1
-				else:
-					intf_flaps[tokens[24]] = 1
+				flap_count += 1
+
 
 	print(f'Found {flap_count} flaps in the file.')
 	print(f'  up: {flap_up}, down: {flap_down}')
