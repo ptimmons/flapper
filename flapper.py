@@ -50,11 +50,16 @@ def main(argv):
 				
 				if self_intf in peer_flaps.keys():
 					if peer_name in peer_flaps[self_intf].keys():
-						if peer_flaps[self_intf][peer_name][peer_intf]['state'] == peer_state:
-							skipped += 1
-							continue
-						peer_flaps[self_intf][peer_name][peer_intf]['state'] == peer_state
-						peer_flaps[self_intf][peer_name][peer_intf]['count'] += 1
+						if peer_intf in peer_flaps[self_intf][peer_name].keys():
+							if peer_flaps[self_intf][peer_name][peer_intf]['state'] == peer_state:
+								skipped += 1
+								continue
+							peer_flaps[self_intf][peer_name][peer_intf]['state'] == peer_state
+							peer_flaps[self_intf][peer_name][peer_intf]['count'] += 1
+						else:
+							peer_flaps[self_intf][peer_name][peer_intf] = {}
+							peer_flaps[self_intf][peer_name][peer_intf]['state'] = peer_state
+							peer_flaps[self_intf][peer_name][peer_intf]['count'] = 1						
 					else:
 						peer_flaps[self_intf][peer_name] = {}
 						peer_flaps[self_intf][peer_name][peer_intf] = {}
