@@ -55,6 +55,11 @@ def main(argv):
 							continue
 						peer_flaps[self_intf][peer_name][peer_intf]['state'] == peer_state
 						peer_flaps[self_intf][peer_name][peer_intf]['count'] += 1
+					else:
+						peer_flaps[self_intf][peer_name] = {}
+						peer_flaps[self_intf][peer_name][peer_intf] = {}
+						peer_flaps[self_intf][peer_name][peer_intf]['state'] = peer_state
+						peer_flaps[self_intf][peer_name][peer_intf]['count'] = 1						
 				else:
 					if peer_state == 'down':
 						# only add them here if they're down (presume they're up to begin with)
