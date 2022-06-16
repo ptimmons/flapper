@@ -43,7 +43,11 @@ def main(argv):
 				self_intf = tokens[24]
 				self_vlan = tokens[27]
 
-				peer_state = tokens[29]
+				try:
+					peer_state = tokens[29]
+				except:
+					print(line)
+					exit()
 
 				if peer_name in peer_flaps.keys():
 					if peer_flaps[peer_name]['state'] == peer_state:
