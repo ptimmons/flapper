@@ -54,7 +54,7 @@ def main(argv):
 							if peer_flaps[self_intf][peer_name][peer_intf]['state'] == peer_state:
 								skipped += 1
 								continue
-							peer_flaps[self_intf][peer_name][peer_intf]['state'] == peer_state
+							peer_flaps[self_intf][peer_name][peer_intf]['state'] = peer_state
 							peer_flaps[self_intf][peer_name][peer_intf]['count'] += 1
 						else:
 							peer_flaps[self_intf][peer_name][peer_intf] = {}
